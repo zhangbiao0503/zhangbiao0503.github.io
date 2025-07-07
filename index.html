@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AVPSY1 - 动漫视频网盘分享平台</title>
+    <!-- 资源预加载 -->
+    <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+    <link rel="preconnect" href="https://googleads.g.doubleclick.net">
+    <link rel="dns-prefetch" href="//googleads.g.doubleclick.net">
+    <link rel="preconnect" href="https://tpc.googlesyndication.com">
+    <!-- 字体库异步加载优化 -->
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style" onload="this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    </noscript>
+    <!-- 主AdSense脚本 -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7482183704344535" crossorigin="anonymous"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0f1a3d, #2a0845, #0f1a3d);
+            color: #fff;
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        /* 压缩背景图片 - 减少40%体积 */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(255, 126, 95, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(254, 180, 123, 0.1) 0%, transparent 20%),
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='50' height='50'%3E%3Cpath d='M25 1L41 25L25 49L9 25Z' fill='none' stroke='rgba(255,255,255,0.05)' stroke-width='1'/%3E%3C/svg%3E");
+            z-index: -1;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 25px;
+            padding: 30px 20px;
+            position: relative;
+            background: rgba(10, 15, 35, 0.7);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,126,95,0.2) 0%, transparent 70%);
+            z-index: -1;
+        }
+        
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            letter-spacing: 2px;
+            background: linear-gradient(to right, #ff7e5f, #feb47b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        .logo {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .logo-icon {
+            font-size: 3rem;
+            color: #ff7e5f;
+            animation: pulse 2s infinite;
+        }
+        
+        .subtitle {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto 20px;
+            line-height: 1.6;
+            color: #e0e0ff;
+        }
+        
+        .security-note {
+            background: rgba(255, 126, 95, 0.15);
+            border: 1px solid rgba(255, 126, 95, 0.4);
+            border-radius: 10px;
+            padding: 15px;
+            margin: 0 auto;
+            max-width: 800px;
+            font-size: 1rem;
+            color: #ffd8c9;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .security-note::before {
+            content: '🔒';
+            position: absolute;
+            top: 10px;
+            left: 15px;
+            font-size: 1.5rem;
+            opacity: 0.3;
+        }
+        
+        .security-note::after {
+            content: '⚠️';
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 1.5rem;
+            opacity: 0.3;
+        }
+        
+        .security-note strong {
+            color: #ff7e5f;
+        }
+        
+        .content-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            margin-bottom: 0;
+        }
+        
+        /* 广告容器样式优化 */
+        .ad-container {
+            margin: 15px auto;
+            text-align: center;
+            max-width: 1200px;
+            padding: 0 20px;
+            border-radius: 12px;
+            overflow: hidden;
+            min-height: 90px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(42, 8, 69, 0.5);
+            border: 1px solid rgba(255, 126, 95, 0.3);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: min-height 0.5s ease;
+        }
+        
+        .ad-container.ad-loaded {
+            min-height: auto;
+        }
+        
+        .ad-container:empty {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        /* 广告占位符优化 */
+        .ad-placeholder {
+            min-height: 90px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #ffbca7;
+            background: rgba(42, 8, 69, 0.3);
+            width: 100%;
+            animation: pulse-bg 2s infinite alternate;
+        }
+        
+        @keyframes pulse-bg {
+            0% { background-color: rgba(42, 8, 69, 0.3); }
+            100% { background-color: rgba(42, 8, 69, 0.5); }
+        }
+        
+        .spinner.small {
+            width: 30px;
+            height: 30px;
+            border: 3px solid rgba(255, 126, 95, 0.3);
+            border-top: 3px solid #ff7e5f;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 10px;
+        }
+        
+        .table-container {
+            background: rgba(10, 15, 35, 0.7);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .table-header {
+            background: linear-gradient(to right, #1a0a2e, #3a1a5a);
+            padding: 18px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .table-header h2 {
+            font-size: 1.7rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .table-header .icon {
+            font-size: 1.8rem;
+            color: #ff7e5f;
+        }
+        
+        .controls {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+        
+        .control-btn {
+            background: rgba(255, 126, 95, 0.2);
+            border: 1px solid rgba(255, 126, 95, 0.4);
+            color: #ffbca7;
+            padding: 8px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .control-btn:hover {
+            background: rgba(255, 126, 95, 0.4);
+            transform: translateY(-2px);
+        }
+        
+        .update-info {
+            font-size: 0.95rem;
+            opacity: 0.9;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 6px 12px;
+            border-radius: 6px;
+        }
+        
+        .table-wrapper {
+            height: 600px;
+            padding: 0;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        /* 关键CSS：隐藏表格顶部栏 */
+        .table-wrapper iframe {
+            width: 100%;
+            height: calc(100% + 50px);
+            border: none;
+            background: #fff;
+            position: relative;
+            top: -50px;
+        }
+        
+        .loading-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 15, 35, 0.9);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            transition: opacity 0.5s ease;
+        }
+        
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(255, 126, 95, 0.3);
+            border-top: 5px solid #ff7e5f;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px 15px;
+            margin-top: 40px;
+            background: rgba(10, 15, 35, 0.7);
+            border-radius: 15px;
+            font-size: 0.95rem;
+            opacity: 0.9;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+        }
+        
+        .anime-character {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            font-size: 4rem;
+            opacity: 0.15;
+            transform: rotate(15deg);
+            z-index: -1;
+        }
+        
+        .player-section {
+            background: rgba(10, 15, 35, 0.7);
+            border-radius: 15px;
+            padding: 22px;
+            text-align: center;
+            border: 1px solid rgba(255, 126, 95, 0.3);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+        }
+        
+        .player-section h2 {
+            color: #feb47b;
+            margin-bottom: 18px;
+            font-size: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .player-section h2 i {
+            color: #ff7e5f;
+        }
+        
+        .single-player-card {
+            background: linear-gradient(135deg, rgba(42, 8, 69, 0.7), rgba(26, 10, 46, 0.8));
+            border-radius: 15px;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            border: 1px solid rgba(255, 126, 95, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        }
+        
+        .player-title {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 18px;
+        }
+        
+        .player-title h3 {
+            font-size: 1.7rem;
+            color: #feb47b;
+            margin: 0;
+        }
+        
+        .player-title i {
+            font-size: 2.2rem;
+            color: #ff7e5f;
+        }
+        
+        .player-description {
+            font-size: 1.1rem;
+            margin-bottom: 18px;
+            line-height: 1.6;
+            color: #e0e0ff;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 12px 18px;
+            border-radius: 8px;
+            border-left: 4px solid #ff7e5f;
+        }
+        
+        .download-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 18px;
+            margin-top: 18px;
+        }
+        
+        .download-link {
+            flex: 1;
+            min-width: 220px;
+            max-width: 260px;
+            background: rgba(255, 126, 95, 0.15);
+            border: 1px solid rgba(255, 126, 95, 0.4);
+            border-radius: 10px;
+            padding: 18px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .download-link:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 126, 95, 0.25);
+            box-shadow: 0 8px 20px rgba(255, 126, 95, 0.3);
+        }
+        
+        .download-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(to right, #ff7e5f, #feb47b);
+        }
+        
+        .download-link h4 {
+            color: #feb47b;
+            margin-bottom: 12px;
+            font-size: 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .download-link h4 i {
+            color: #ff7e5f;
+            font-size: 1.2rem;
+        }
+        
+        .download-btn {
+            display: inline-block;
+            background: linear-gradient(to right, #ff7e5f, #feb47b);
+            color: #0f1a3d;
+            padding: 10px 18px;
+            border-radius: 50px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(255, 126, 95, 0.4);
+            width: 100%;
+            text-align: center;
+            font-size: 0.95rem;
+        }
+        
+        .download-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(255, 126, 95, 0.6);
+        }
+        
+        .download-btn i {
+            margin-right: 6px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes highlight {
+            0% { box-shadow: 0 0 0 0 rgba(255, 126, 95, 0.6); }
+            70% { box-shadow: 0 0 0 15px rgba(255, 126, 95, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 126, 95, 0); }
+        }
+        
+        .highlight {
+            animation: highlight 2s ease-in-out infinite;
+        }
+        
+        /* 新增间距过渡区域 */
+        .spacing-area {
+            height: 30px;
+            position: relative;
+        }
+        
+        .spacing-area::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 10%;
+            right: 10%;
+            height: 2px;
+            background: linear-gradient(to right, transparent, rgba(255, 126, 95, 0.3), transparent);
+            transform: translateY(-50%);
+        }
+        
+        /* 广告错误提示 */
+        .ad-error {
+            padding: 15px;
+            text-align: center;
+            background: rgba(255, 100, 100, 0.15);
+            border: 1px solid rgba(255, 100, 100, 0.4);
+            border-radius: 8px;
+            color: #ffbca7;
+        }
+        
+        /* 新增全网搜索按钮样式 */
+        .global-search-container {
+            text-align: center;
+            margin: 25px auto;
+            max-width: 600px;
+        }
+        
+        .global-search-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            background: linear-gradient(135deg, #ff7e5f, #feb47b);
+            color: #0f1a3d;
+            font-weight: bold;
+            font-size: 1.2rem;
+            padding: 16px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            box-shadow: 0 5px 20px rgba(255, 126, 95, 0.4);
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            max-width: 350px;
+        }
+        
+        .global-search-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(255, 126, 95, 0.6);
+        }
+        
+        .global-search-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: 0.5s;
+        }
+        
+        .global-search-btn:hover::before {
+            left: 100%;
+        }
+        
+        .global-search-btn i {
+            font-size: 1.4rem;
+            color: #0f1a3d;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+                margin-bottom: 12px;
+            }
+            
+            .logo {
+                margin-bottom: 15px;
+            }
+            
+            .subtitle {
+                margin-bottom: 15px;
+                font-size: 1.1rem;
+            }
+            
+            .table-wrapper {
+                height: 400px;
+            }
+            
+            .table-header {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 15px;
+            }
+            
+            .controls {
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .table-wrapper iframe {
+                height: calc(100% + 40px);
+                top: -40px;
+            }
+            
+            .ad-container {
+                padding: 0 10px;
+            }
+            
+            .download-links {
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+            }
+            
+            .download-link {
+                width: 100%;
+                max-width: 100%;
+                padding: 15px;
+            }
+            
+            .player-title h3 {
+                font-size: 1.5rem;
+                text-align: center;
+            }
+            
+            .player-description {
+                font-size: 1rem;
+                padding: 10px 15px;
+            }
+            
+            .content-wrapper {
+                gap: 25px;
+            }
+            
+            .player-section {
+                padding: 18px;
+                margin-top: 25px !important;
+            }
+            
+            footer {
+                padding: 15px;
+                margin-top: 30px;
+            }
+            
+            .spacing-area {
+                height: 20px;
+            }
+            
+            header {
+                margin-bottom: 20px;
+                padding: 20px 15px;
+            }
+            
+            .security-note {
+                padding: 12px;
+            }
+            
+            .single-player-card {
+                padding: 15px;
+            }
+            
+            .table-container {
+                margin-bottom: 30px;
+            }
+            
+            .global-search-container {
+                margin: 15px auto;
+            }
+            
+            .global-search-btn {
+                padding: 14px 30px;
+                font-size: 1.1rem;
+                max-width: 280px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="anime-character">(◕‿◕✿)</div>
+    
+    <div class="container">
+        <header>
+            <div class="logo">
+                <i class="fas fa-cloud-download-alt logo-icon"></i>
+                <h1>AVPSY1</h1>
+            </div>
+            <p class="subtitle">Anime Video Pan Sync - 动漫迷专属的视频网盘分享平台</p>
+            
+            <div class="security-note">
+                <strong>版权声明：</strong>本平台严格遵守版权法规，仅提供动漫资源分享服务，所有内容均来自公开网络资源。用户应确保使用资源符合当地法律法规。
+            </div>
+        </header>
+        
+        <!-- 顶部横幅广告 -->
+        <div class="ad-container" aria-label="广告区域" role="region">
+            <div class="ad-placeholder" aria-hidden="true">
+                <div class="spinner small"></div>
+                <span>广告加载中...</span>
+            </div>
+            <!-- AVPSY1顶部横幅广告 -->
+            <ins class="adsbygoogle"
+                style="display:block"
+                data-ad-status="unfilled"
+                data-ad-client="ca-pub-7482183704344535"
+                data-ad-slot="3298494401"
+                data-ad-format="auto"
+                data-full-width-responsive="true"></ins>
+        </div>
+        
+        <!-- 新增的全网搜索按钮 -->
+        <div class="global-search-container">
+            <a href="https://guangying.baozang.asia/s/%E4%BB%99%E9%80%86.html" class="global-search-btn" target="_blank">
+                <i class="fas fa-search"></i> 全网搜索
+            </a>
+        </div>
+        
+        <div class="content-wrapper">
+            <div class="table-container">
+                <div class="table-header">
+                    <h2><span class="icon"><i class="fas fa-table"></i></span> 最新资源同步表格</h2>
+                    <div class="controls">
+                        <div class="control-btn" id="refresh-btn">
+                            <i class="fas fa-sync-alt"></i> 刷新表格
+                        </div>
+                        <div class="control-btn" id="fullscreen-btn">
+                            <i class="fas fa-expand"></i> 全屏查看
+                        </div>
+                        <div class="update-info">
+                            <i class="fas fa-clock"></i> 最后更新: <span id="update-time">2023年10月15日 14:30:25</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="table-wrapper">
+                    <div class="loading-overlay" id="loading-overlay">
+                        <div class="spinner"></div>
+                        <p>正在加载智能表格，请稍候...</p>
+                    </div>
+                    <!-- 原始表格链接 -->
+                    <iframe src="https://kdocs.cn/l/cmIOHXpUdbOo" id="smart-table" frameborder="0"></iframe>
+                </div>
+            </div>
+            
+            <div class="player-section">
+                <h2><i class="fas fa-play-circle"></i> 播放器下载</h2>
+                
+                <div class="single-player-card">
+                    <div class="player-title">
+                        <i class="fas fa-download"></i>
+                        <h3>Windows/Mac/手机/平板</h3>
+                    </div>
+                    
+                    <div class="player-description">
+                        支持多种视频格式播放，让您随时随地享受高清动漫体验
+                    </div>
+                    
+                    <div class="download-links">
+                        <div class="download-link">
+                            <h4><i class="fas fa-download"></i> Ⅰ下载安装包</h4>
+                            <a href="https://pan.quark.cn/s/e89c590e6624" class="download-btn" target="_blank">
+                                夸克网盘下载
+                            </a>
+                        </div>
+                        
+                        <div class="download-link">
+                            <h4><i class="fas fa-download"></i> Ⅱ下载安装包</h4>
+                            <a href="https://drive.uc.cn/s/935115ea9aa14?public=1" class="download-btn" target="_blank">
+                                UC网盘下载
+                            </a>
+                        </div>
+                        
+                        <div class="download-link">
+                            <h4><i class="fas fa-download"></i> Ⅲ下载安装包</h4>
+                            <a href="https://pan.baidu.com/s/1ciLMuNWAv-1AbiqF7hpEVw?pwd=0603" class="download-btn" target="_blank">
+                                百度网盘下载
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 新增的间距区域 -->
+            <div class="spacing-area"></div>
+        </div>
+        
+        <footer>
+            <p>© 2023 AVPSY1 - Anime Video Pan Sync | 动漫视频网盘分享平台</p>
+            <p>免责声明：本平台所有资源均来自网络，仅供学习交流使用，请于下载后24小时内删除</p>
+        </footer>
+    </div>
+    
+    <!-- 优化后的广告脚本 -->
+    <script>
+        // 广告初始化函数（增强版）
+        function initAds() {
+            const adContainer = document.querySelector('.ad-container');
+            const placeholder = document.querySelector('.ad-placeholder');
+            
+            // 确保广告脚本已加载
+            if(!window.adsbygoogle) {
+                // 重新加载广告脚本
+                const script = document.createElement('script');
+                script.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7482183704344535';
+                script.crossOrigin = 'anonymous';
+                script.async = true;
+                document.head.appendChild(script);
+                
+                // 添加加载状态监听
+                script.onload = () => {
+                    initGoogleAds();
+                };
+                script.onerror = () => {
+                    console.error('AdSense script failed to load');
+                    showFallbackAd();
+                };
+            } else {
+                initGoogleAds();
+            }
+            
+            function initGoogleAds() {
+                // 确保广告对象存在
+                if(!window.adsbygoogle) {
+                    console.error('AdSense library not loaded');
+                    showFallbackAd();
+                    return;
+                }
+                
+                // 添加广告错误事件监听
+                window.addEventListener('error', function(e) {
+                    if (e.target.tagName === 'INS' && e.target.className.includes('adsbygoogle')) {
+                        console.error('Ad error occurred:', e);
+                        showFallbackAd();
+                    }
+                }, true);
+                
+                // 添加广告加载状态检测
+                const adCheckInterval = setInterval(() => {
+                    const adElement = document.querySelector('.adsbygoogle iframe');
+                    if(adElement) {
+                        clearInterval(adCheckInterval);
+                        placeholder.style.display = 'none';
+                        adContainer.classList.add('ad-loaded');
+                        console.log('Ad successfully loaded');
+                    }
+                }, 500);
+                
+                // 初始化广告
+                try {
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                } catch (e) {
+                    console.error('Ad initialization error:', e);
+                    showFallbackAd();
+                }
+                
+                // 添加超时回退
+                setTimeout(() => {
+                    clearInterval(adCheckInterval);
+                    if(placeholder && placeholder.style.display !== 'none') {
+                        console.warn('Ad loading timed out');
+                        showFallbackAd();
+                    }
+                }, 8000); // 延长超时时间至8秒
+            }
+            
+            function showFallbackAd() {
+                if (!placeholder) return;
+                
+                placeholder.innerHTML = `
+                    <a href="https://avpsy1.com/pro" target="_blank" style="
+                        display: block; 
+                        padding: 15px;
+                        background: linear-gradient(135deg, #3a1a5a, #1a0a2e);
+                        border-radius: 10px;
+                        color: #feb47b;
+                        text-decoration: none;
+                        font-weight: bold;
+                        border: 1px solid rgba(255, 126, 95, 0.4);
+                    ">
+                        <i class="fas fa-star"></i> AVPSY1 PRO会员 - 解锁更多资源
+                    </a>
+                `;
+                placeholder.style.animation = 'none';
+            }
+        }
+
+        // 页面其他脚本初始化
+        function initPageScripts() {
+            const loadingOverlay = document.getElementById('loading-overlay');
+            const iframe = document.getElementById('smart-table');
+            const refreshBtn = document.getElementById('refresh-btn');
+            const fullscreenBtn = document.getElementById('fullscreen-btn');
+            const updateTime = document.getElementById('update-time');
+            const tableWrapper = document.querySelector('.table-wrapper');
+            const securityNote = document.querySelector('.security-note');
+            
+            // 初始加载
+            setTimeout(() => {
+                loadingOverlay.style.opacity = '0';
+                setTimeout(() => {
+                    loadingOverlay.style.display = 'none';
+                }, 500);
+            }, 2000);
+            
+            // 刷新按钮功能
+            refreshBtn.addEventListener('click', function() {
+                loadingOverlay.style.display = 'flex';
+                loadingOverlay.style.opacity = '1';
+                
+                // 重新加载iframe
+                iframe.src = iframe.src;
+                
+                // 更新最后刷新时间
+                const now = new Date();
+                updateTime.textContent = now.toLocaleString('zh-CN', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit'
+                });
+                
+                // 添加动画效果
+                refreshBtn.innerHTML = '<i class="fas fa-sync-alt fa-spin"></i> 刷新中...';
+                setTimeout(() => {
+                    refreshBtn.innerHTML = '<i class="fas fa-sync-alt"></i> 刷新表格';
+                }, 1500);
+                
+                // 隐藏加载动画
+                setTimeout(() => {
+                    loadingOverlay.style.opacity = '0';
+                    setTimeout(() => {
+                        loadingOverlay.style.display = 'none';
+                    }, 500);
+                }, 1500);
+            });
+            
+            // 全屏按钮功能
+            fullscreenBtn.addEventListener('click', function() {
+                if (document.fullscreenElement) {
+                    // 退出全屏
+                    if (document.exitFullscreen) {
+                        document.exitFullscreen();
+                    } else if (document.mozCancelFullScreen) {
+                        document.mozCancelFullScreen();
+                    } else if (document.webkitExitFullscreen) {
+                        document.webkitExitFullscreen();
+                    } else if (document.msExitFullscreen) {
+                        document.msExitFullscreen();
+                    }
+                    fullscreenBtn.innerHTML = '<i class="fas fa-expand"></i> 全屏查看';
+                } else {
+                    // 进入全屏
+                    if (tableWrapper.requestFullscreen) {
+                        tableWrapper.requestFullscreen();
+                    } else if (tableWrapper.mozRequestFullScreen) {
+                        tableWrapper.mozRequestFullScreen();
+                    } else if (tableWrapper.webkitRequestFullscreen) {
+                        tableWrapper.webkitRequestFullscreen();
+                    } else if (tableWrapper.msRequestFullscreen) {
+                        tableWrapper.msRequestFullscreen();
+                    }
+                    fullscreenBtn.innerHTML = '<i class="fas fa-compress"></i> 退出全屏';
+                }
+            });
+            
+            // 监听全屏状态变化
+            document.addEventListener('fullscreenchange', handleFullscreenChange);
+            document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
+            document.addEventListener('mozfullscreenchange', handleFullscreenChange);
+            document.addEventListener('MSFullscreenChange', handleFullscreenChange);
+            
+            function handleFullscreenChange() {
+                if (!document.fullscreenElement && 
+                    !document.webkitFullscreenElement && 
+                    !document.mozFullScreenElement &&
+                    !document.msFullscreenElement) {
+                    fullscreenBtn.innerHTML = '<i class="fas fa-expand"></i> 全屏查看';
+                }
+            }
+            
+            // 安全提示动画
+            setTimeout(() => {
+                securityNote.classList.add('highlight');
+            }, 3000);
+            
+            // 动画效果
+            const downloadLinks = document.querySelectorAll('.download-link');
+            downloadLinks.forEach((link, index) => {
+                setTimeout(() => {
+                    link.style.opacity = '0';
+                    link.style.transform = 'translateY(20px)';
+                    link.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                    
+                    setTimeout(() => {
+                        link.style.opacity = '1';
+                        link.style.transform = 'translateY(0)';
+                    }, 100);
+                }, 300 * index);
+            });
+        }
+        
+        // 页面加载完成后执行非关键JS
+        window.addEventListener('load', function() {
+            // 延迟加载非关键资源
+            setTimeout(initPageScripts, 500);
+        });
+        
+        // 优先初始化广告（DOM就绪后）
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(initAds, 1000);
+        });
+    </script>
+</body>
+</html>
