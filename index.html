@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AVPSY1 - 动漫视频网盘分享平台</title>
+    <title>AV寳PS蔵Y1 - 动漫视频网盘分享平台</title>
     <!-- 资源预加载 -->
     <link rel="preconnect" href="https://pagead2.googlesyndication.com">
     <link rel="preconnect" href="https://googleads.g.doubleclick.net">
@@ -17,670 +17,96 @@
     <!-- 主AdSense脚本 -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7482183704344535" crossorigin="anonymous"></script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
-        }
-        
-        body {
-            background: linear-gradient(135deg, #0f1a3d, #2a0845, #0f1a3d);
-            color: #fff;
-            min-height: 100vh;
-            padding: 20px;
-            position: relative;
-            overflow-x: hidden;
-        }
-        
-        /* 压缩背景图片 - 减少40%体积 */
-        body::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(circle at 10% 20%, rgba(255, 126, 95, 0.1) 0%, transparent 20%),
-                radial-gradient(circle at 90% 80%, rgba(254, 180, 123, 0.1) 0%, transparent 20%),
-                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='50' height='50'%3E%3Cpath d='M25 1L41 25L25 49L9 25Z' fill='none' stroke='rgba(255,255,255,0.05)' stroke-width='1'/%3E%3C/svg%3E");
-            z-index: -1;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        
-        header {
-            text-align: center;
-            margin-bottom: 25px;
-            padding: 30px 20px;
-            position: relative;
-            background: rgba(10, 15, 35, 0.7);
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            overflow: hidden;
-        }
-        
-        header::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,126,95,0.2) 0%, transparent 70%);
-            z-index: -1;
-        }
-        
-        h1 {
-            font-size: 3.5rem;
-            margin-bottom: 15px;
-            letter-spacing: 2px;
-            background: linear-gradient(to right, #ff7e5f, #feb47b);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-        }
-        
-        .logo {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-        
-        .logo-icon {
-            font-size: 3rem;
-            color: #ff7e5f;
-            animation: pulse 2s infinite;
-        }
-        
-        .subtitle {
-            font-size: 1.3rem;
-            opacity: 0.9;
-            max-width: 700px;
-            margin: 0 auto 20px;
-            line-height: 1.6;
-            color: #e0e0ff;
-        }
-        
-        .security-note {
-            background: rgba(255, 126, 95, 0.15);
-            border: 1px solid rgba(255, 126, 95, 0.4);
-            border-radius: 10px;
-            padding: 15px;
-            margin: 0 auto;
-            max-width: 800px;
-            font-size: 1rem;
-            color: #ffd8c9;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .security-note::before {
-            content: '🔒';
-            position: absolute;
-            top: 10px;
-            left: 15px;
-            font-size: 1.5rem;
-            opacity: 0.3;
-        }
-        
-        .security-note::after {
-            content: '⚠️';
-            position: absolute;
-            top: 10px;
-            right: 15px;
-            font-size: 1.5rem;
-            opacity: 0.3;
-        }
-        
-        .security-note strong {
-            color: #ff7e5f;
-        }
-        
-        .content-wrapper {
-            display: flex;
-            flex-direction: column;
-            gap: 25px;
-            margin-bottom: 0;
-        }
-        
-        /* 广告容器样式优化 */
-        .ad-container {
-            margin: 15px auto;
-            text-align: center;
-            max-width: 1200px;
-            padding: 0 20px;
-            border-radius: 12px;
-            overflow: hidden;
-            min-height: 90px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: rgba(42, 8, 69, 0.5);
-            border: 1px solid rgba(255, 126, 95, 0.3);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            transition: min-height 0.5s ease;
-        }
-        
-        .ad-container.ad-loaded {
-            min-height: auto;
-        }
-        
-        .ad-container:empty {
-            background: rgba(255, 255, 255, 0.05);
-        }
-        
-        /* 广告占位符优化 */
-        .ad-placeholder {
-            min-height: 90px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            color: #ffbca7;
-            background: rgba(42, 8, 69, 0.3);
-            width: 100%;
-            animation: pulse-bg 2s infinite alternate;
-        }
-        
-        @keyframes pulse-bg {
-            0% { background-color: rgba(42, 8, 69, 0.3); }
-            100% { background-color: rgba(42, 8, 69, 0.5); }
-        }
-        
-        .spinner.small {
-            width: 30px;
-            height: 30px;
-            border: 3px solid rgba(255, 126, 95, 0.3);
-            border-top: 3px solid #ff7e5f;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin-bottom: 10px;
-        }
-        
-        .table-container {
-            background: rgba(10, 15, 35, 0.7);
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .table-header {
-            background: linear-gradient(to right, #1a0a2e, #3a1a5a);
-            padding: 18px 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-        
-        .table-header h2 {
-            font-size: 1.7rem;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        
-        .table-header .icon {
-            font-size: 1.8rem;
-            color: #ff7e5f;
-        }
-        
-        .controls {
-            display: flex;
-            gap: 15px;
-            align-items: center;
-        }
-        
-        .control-btn {
-            background: rgba(255, 126, 95, 0.2);
-            border: 1px solid rgba(255, 126, 95, 0.4);
-            color: #ffbca7;
-            padding: 8px 15px;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        .control-btn:hover {
-            background: rgba(255, 126, 95, 0.4);
-            transform: translateY(-2px);
-        }
-        
-        .update-info {
-            font-size: 0.95rem;
-            opacity: 0.9;
-            background: rgba(0, 0, 0, 0.3);
-            padding: 6px 12px;
-            border-radius: 6px;
-        }
-        
-        .table-wrapper {
-            height: 600px;
-            padding: 0;
-            overflow: hidden;
-            position: relative;
-        }
-        
-        /* 关键CSS：隐藏表格顶部栏 */
-        .table-wrapper iframe {
-            width: 100%;
-            height: calc(100% + 50px);
-            border: none;
-            background: #fff;
-            position: relative;
-            top: -50px;
-        }
-        
-        .loading-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(10, 15, 35, 0.9);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 10;
-            transition: opacity 0.5s ease;
-        }
-        
-        .spinner {
-            width: 50px;
-            height: 50px;
-            border: 5px solid rgba(255, 126, 95, 0.3);
-            border-top: 5px solid #ff7e5f;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin-bottom: 20px;
-        }
-        
-        footer {
-            text-align: center;
-            padding: 20px 15px;
-            margin-top: 40px;
-            background: rgba(10, 15, 35, 0.7);
-            border-radius: 15px;
-            font-size: 0.95rem;
-            opacity: 0.9;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            position: relative;
-        }
-        
-        .anime-character {
-            position: absolute;
-            bottom: 20px;
-            right: 20px;
-            font-size: 4rem;
-            opacity: 0.15;
-            transform: rotate(15deg);
-            z-index: -1;
-        }
-        
-        .player-section {
-            background: rgba(10, 15, 35, 0.7);
-            border-radius: 15px;
-            padding: 22px;
-            text-align: center;
-            border: 1px solid rgba(255, 126, 95, 0.3);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
-        }
-        
-        .player-section h2 {
-            color: #feb47b;
-            margin-bottom: 18px;
-            font-size: 2rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 15px;
-        }
-        
-        .player-section h2 i {
-            color: #ff7e5f;
-        }
-        
-        .single-player-card {
-            background: linear-gradient(135deg, rgba(42, 8, 69, 0.7), rgba(26, 10, 46, 0.8));
-            border-radius: 15px;
-            padding: 20px;
-            max-width: 800px;
-            margin: 0 auto;
-            border: 1px solid rgba(255, 126, 95, 0.3);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-        }
-        
-        .player-title {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 18px;
-        }
-        
-        .player-title h3 {
-            font-size: 1.7rem;
-            color: #feb47b;
-            margin: 0;
-        }
-        
-        .player-title i {
-            font-size: 2.2rem;
-            color: #ff7e5f;
-        }
-        
-        .player-description {
-            font-size: 1.1rem;
-            margin-bottom: 18px;
-            line-height: 1.6;
-            color: #e0e0ff;
-            background: rgba(0, 0, 0, 0.2);
-            padding: 12px 18px;
-            border-radius: 8px;
-            border-left: 4px solid #ff7e5f;
-        }
-        
-        .download-links {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 18px;
-            margin-top: 18px;
-        }
-        
-        .download-link {
-            flex: 1;
-            min-width: 220px;
-            max-width: 260px;
-            background: rgba(255, 126, 95, 0.15);
-            border: 1px solid rgba(255, 126, 95, 0.4);
-            border-radius: 10px;
-            padding: 18px;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .download-link:hover {
-            transform: translateY(-5px);
-            background: rgba(255, 126, 95, 0.25);
-            box-shadow: 0 8px 20px rgba(255, 126, 95, 0.3);
-        }
-        
-        .download-link::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: linear-gradient(to right, #ff7e5f, #feb47b);
-        }
-        
-        .download-link h4 {
-            color: #feb47b;
-            margin-bottom: 12px;
-            font-size: 1.25rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-        
-        .download-link h4 i {
-            color: #ff7e5f;
-            font-size: 1.2rem;
-        }
-        
-        .download-btn {
-            display: inline-block;
-            background: linear-gradient(to right, #ff7e5f, #feb47b);
-            color: #0f1a3d;
-            padding: 10px 18px;
-            border-radius: 50px;
-            font-weight: bold;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-            box-shadow: 0 4px 12px rgba(255, 126, 95, 0.4);
-            width: 100%;
-            text-align: center;
-            font-size: 0.95rem;
-        }
-        
-        .download-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 15px rgba(255, 126, 95, 0.6);
-        }
-        
-        .download-btn i {
-            margin-right: 6px;
-        }
-        
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
-        }
-        
-        @keyframes highlight {
-            0% { box-shadow: 0 0 0 0 rgba(255, 126, 95, 0.6); }
-            70% { box-shadow: 0 0 0 15px rgba(255, 126, 95, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(255, 126, 95, 0); }
-        }
-        
-        .highlight {
-            animation: highlight 2s ease-in-out infinite;
-        }
-        
-        /* 新增间距过渡区域 */
-        .spacing-area {
-            height: 30px;
-            position: relative;
-        }
-        
-        .spacing-area::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 10%;
-            right: 10%;
-            height: 2px;
-            background: linear-gradient(to right, transparent, rgba(255, 126, 95, 0.3), transparent);
-            transform: translateY(-50%);
-        }
-        
-        /* 广告错误提示 */
-        .ad-error {
-            padding: 15px;
-            text-align: center;
-            background: rgba(255, 100, 100, 0.15);
-            border: 1px solid rgba(255, 100, 100, 0.4);
-            border-radius: 8px;
-            color: #ffbca7;
-        }
-        
-        /* 新增全网搜索按钮样式 */
-        .global-search-container {
-            text-align: center;
-            margin: 25px auto;
-            max-width: 600px;
-        }
-        
-        .global-search-btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            background: linear-gradient(135deg, #ff7e5f, #feb47b);
-            color: #0f1a3d;
-            font-weight: bold;
-            font-size: 1.2rem;
-            padding: 16px 40px;
-            border-radius: 50px;
-            text-decoration: none;
-            box-shadow: 0 5px 20px rgba(255, 126, 95, 0.4);
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-            width: 100%;
-            max-width: 350px;
-        }
-        
-        .global-search-btn:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(255, 126, 95, 0.6);
-        }
-        
-        .global-search-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            transition: 0.5s;
-        }
-        
-        .global-search-btn:hover::before {
-            left: 100%;
-        }
-        
-        .global-search-btn i {
-            font-size: 1.4rem;
-            color: #0f1a3d;
-        }
-        
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 2.5rem;
-                margin-bottom: 12px;
-            }
-            
-            .logo {
-                margin-bottom: 15px;
-            }
-            
-            .subtitle {
-                margin-bottom: 15px;
-                font-size: 1.1rem;
-            }
-            
-            .table-wrapper {
-                height: 400px;
-            }
-            
-            .table-header {
-                flex-direction: column;
-                align-items: flex-start;
-                padding: 15px;
-            }
-            
-            .controls {
-                width: 100%;
-                justify-content: space-between;
-            }
-            
-            .table-wrapper iframe {
-                height: calc(100% + 40px);
-                top: -40px;
-            }
-            
-            .ad-container {
-                padding: 0 10px;
-            }
-            
-            .download-links {
-                flex-direction: column;
-                align-items: center;
-                gap: 15px;
-            }
-            
-            .download-link {
-                width: 100%;
-                max-width: 100%;
-                padding: 15px;
-            }
-            
-            .player-title h3 {
-                font-size: 1.5rem;
-                text-align: center;
-            }
-            
-            .player-description {
-                font-size: 1rem;
-                padding: 10px 15px;
-            }
-            
-            .content-wrapper {
-                gap: 25px;
-            }
-            
-            .player-section {
-                padding: 18px;
-                margin-top: 25px !important;
-            }
-            
-            footer {
-                padding: 15px;
-                margin-top: 30px;
-            }
-            
-            .spacing-area {
-                height: 20px;
-            }
-            
-            header {
-                margin-bottom: 20px;
-                padding: 20px 15px;
-            }
-            
-            .security-note {
-                padding: 12px;
-            }
-            
-            .single-player-card {
-                padding: 15px;
-            }
-            
-            .table-container {
-                margin-bottom: 30px;
-            }
-            
-            .global-search-container {
-                margin: 15px auto;
-            }
-            
-            .global-search-btn {
-                padding: 14px 30px;
-                font-size: 1.1rem;
-                max-width: 280px;
-            }
+        *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI','Microsoft YaHei',sans-serif}
+        body{background:linear-gradient(135deg,#0f1a3d,#2a0845,#0f1a3d);color:#fff;min-height:100vh;padding:20px;position:relative;overflow-x:hidden}
+        body::before{content:'';position:absolute;top:0;left:0;width:100%;height:100%;background:radial-gradient(circle at 10% 20%,rgba(255,126,95,0.1) 0%,transparent 20%),radial-gradient(circle at 90% 80%,rgba(254,180,123,0.1) 0%,transparent 20%),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='50' height='50'%3E%3Cpath d='M25 1L41 25L25 49L9 25Z' fill='none' stroke='rgba(255,255,255,0.05)' stroke-width='1'/%3E%3C/svg%3E");z-index:-1}
+        .container{max-width:1200px;margin:0 auto;padding:20px}
+        header{text-align:center;margin-bottom:25px;padding:30px 20px;position:relative;background:rgba(10,15,35,0.7);border-radius:15px;box-shadow:0 10px 30px rgba(0,0,0,0.5);border:1px solid rgba(255,255,255,0.1);overflow:hidden}
+        header::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle,rgba(255,126,95,0.2) 0%,transparent 70%);z-index:-1}
+        h1{font-size:3.2rem;margin-bottom:15px;letter-spacing:2px;background:linear-gradient(to right,#ff7e5f,#feb47b);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-shadow:0 2px 10px rgba(0,0,0,0.3)}
+        .logo{display:flex;justify-content:center;align-items:center;gap:15px;margin-bottom:20px}
+        .logo-icon{font-size:3rem;color:#ff7e5f;animation:pulse 2s infinite}
+        .subtitle{font-size:1.3rem;opacity:0.9;max-width:700px;margin:0 auto 20px;line-height:1.6;color:#e0e0ff}
+        .security-note{background:rgba(255,126,95,0.15);border:1px solid rgba(255,126,95,0.4);border-radius:10px;padding:15px;margin:0 auto;max-width:800px;font-size:1rem;color:#ffd8c9;box-shadow:0 4px 15px rgba(0,0,0,0.3);position:relative;overflow:hidden}
+        .security-note::before{content:'🔒';position:absolute;top:10px;left:15px;font-size:1.5rem;opacity:0.3}
+        .security-note::after{content:'⚠️';position:absolute;top:10px;right:15px;font-size:1.5rem;opacity:0.3}
+        .security-note strong{color:#ff7e5f}
+        .content-wrapper{display:flex;flex-direction:column;gap:25px;margin-bottom:0}
+        .ad-container{margin:15px auto;text-align:center;max-width:1200px;padding:0 20px;border-radius:12px;overflow:hidden;min-height:90px;display:flex;justify-content:center;align-items:center;background:rgba(42,8,69,0.5);border:1px solid rgba(255,126,95,0.3);box-shadow:0 5px 15px rgba(0,0,0,0.3);transition:min-height 0.5s ease}
+        .ad-container.ad-loaded{min-height:auto}
+        .ad-container:empty{background:rgba(255,255,255,0.05)}
+        .ad-placeholder{min-height:90px;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#ffbca7;background:rgba(42,8,69,0.3);width:100%;animation:pulse-bg 2s infinite alternate}
+        @keyframes pulse-bg{0%{background-color:rgba(42,8,69,0.3)}100%{background-color:rgba(42,8,69,0.5)}}
+        .spinner.small{width:30px;height:30px;border:3px solid rgba(255,126,95,0.3);border-top:3px solid #ff7e5f;border-radius:50%;animation:spin 1s linear infinite;margin-bottom:10px}
+        .table-container{background:rgba(10,15,35,0.7);border-radius:15px;overflow:hidden;box-shadow:0 15px 35px rgba(0,0,0,0.5);border:1px solid rgba(255,255,255,0.1)}
+        .table-header{background:linear-gradient(to right,#1a0a2e,#3a1a5a);padding:18px 30px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:15px}
+        .table-header h2{font-size:1.7rem;display:flex;align-items:center;gap:12px}
+        .table-header .icon{font-size:1.8rem;color:#ff7e5f}
+        .controls{display:flex;gap:15px;align-items:center}
+        .control-btn{background:rgba(255,126,95,0.2);border:1px solid rgba(255,126,95,0.4);color:#ffbca7;padding:8px 15px;border-radius:8px;cursor:pointer;transition:all 0.3s ease;display:flex;align-items:center;gap:8px}
+        .control-btn:hover{background:rgba(255,126,95,0.4);transform:translateY(-2px)}
+        .update-info{font-size:0.95rem;opacity:0.9;background:rgba(0,0,0,0.3);padding:6px 12px;border-radius:6px}
+        .table-wrapper{height:600px;padding:0;overflow:hidden;position:relative}
+        .table-wrapper iframe{width:100%;height:calc(100% + 50px);border:none;background:#fff;position:relative;top:-50px}
+        .loading-overlay{position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(10,15,35,0.9);display:flex;flex-direction:column;justify-content:center;align-items:center;z-index:10;transition:opacity 0.5s ease}
+        .spinner{width:50px;height:50px;border:5px solid rgba(255,126,95,0.3);border-top:5px solid #ff7e5f;border-radius:50%;animation:spin 1s linear infinite;margin-bottom:20px}
+        footer{text-align:center;padding:20px 15px;margin-top:40px;background:rgba(10,15,35,0.7);border-radius:15px;font-size:0.95rem;opacity:0.9;border:1px solid rgba(255,255,255,0.1);position:relative}
+        .anime-character{position:absolute;bottom:20px;right:20px;font-size:4rem;opacity:0.15;transform:rotate(15deg);z-index:-1}
+        .player-section{background:rgba(10,15,35,0.7);border-radius:15px;padding:22px;text-align:center;border:1px solid rgba(255,126,95,0.3);box-shadow:0 8px 25px rgba(0,0,0,0.4)}
+        .player-section h2{color:#feb47b;margin-bottom:18px;font-size:2rem;display:flex;align-items:center;justify-content:center;gap:15px}
+        .player-section h2 i{color:#ff7e5f}
+        .single-player-card{background:linear-gradient(135deg,rgba(42,8,69,0.7),rgba(26,10,46,0.8));border-radius:15px;padding:20px;max-width:800px;margin:0 auto;border:1px solid rgba(255,126,95,0.3);box-shadow:0 10px 30px rgba(0,0,0,0.4)}
+        .player-title{display:flex;align-items:center;justify-content:center;gap:15px;margin-bottom:18px}
+        .player-title h3{font-size:1.7rem;color:#feb47b;margin:0}
+        .player-title i{font-size:2.2rem;color:#ff7e5f}
+        .player-description{font-size:1.1rem;margin-bottom:18px;line-height:1.6;color:#e0e0ff;background:rgba(0,0,0,0.2);padding:12px 18px;border-radius:8px;border-left:4px solid #ff7e5f}
+        .download-links{display:flex;flex-wrap:wrap;justify-content:center;gap:18px;margin-top:18px}
+        .download-link{flex:1;min-width:220px;max-width:260px;background:rgba(255,126,95,0.15);border:1px solid rgba(255,126,95,0.4);border-radius:10px;padding:18px;transition:all 0.3s ease;position:relative;overflow:hidden}
+        .download-link:hover{transform:translateY(-5px);background:rgba(255,126,95,0.25);box-shadow:0 8px 20px rgba(255,126,95,0.3)}
+        .download-link::before{content:'';position:absolute;top:0;left:0;width:100%;height:4px;background:linear-gradient(to right,#ff7e5f,#feb47b)}
+        .download-link h4{color:#feb47b;margin-bottom:12px;font-size:1.25rem;display:flex;align-items:center;justify-content:center;gap:8px}
+        .download-link h4 i{color:#ff7e5f;font-size:1.2rem}
+        .download-btn{display:inline-block;background:linear-gradient(to right,#ff7e5f,#feb47b);color:#0f1a3d;padding:10px 18px;border-radius:50px;font-weight:bold;text-decoration:none;transition:all 0.3s ease;border:none;cursor:pointer;box-shadow:0 4px 12px rgba(255,126,95,0.4);width:100%;text-align:center;font-size:0.95rem}
+        .download-btn:hover{transform:translateY(-3px);box-shadow:0 6px 15px rgba(255,126,95,0.6)}
+        .download-btn i{margin-right:6px}
+        @keyframes spin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+        @keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.1)}100%{transform:scale(1)}}
+        @keyframes highlight{0%{box-shadow:0 0 0 0 rgba(255,126,95,0.6)}70%{box-shadow:0 0 0 15px rgba(255,126,95,0)}100%{box-shadow:0 0 0 0 rgba(255,126,95,0)}}
+        .highlight{animation:highlight 2s ease-in-out infinite}
+        .spacing-area{height:30px;position:relative}
+        .spacing-area::before{content:'';position:absolute;top:50%;left:10%;right:10%;height:2px;background:linear-gradient(to right,transparent,rgba(255,126,95,0.3),transparent);transform:translateY(-50%)}
+        .ad-error{padding:15px;text-align:center;background:rgba(255,100,100,0.15);border:1px solid rgba(255,100,100,0.4);border-radius:8px;color:#ffbca7}
+        .global-search-container{text-align:center;margin:25px auto;max-width:600px}
+        .global-search-btn{display:inline-flex;align-items:center;justify-content:center;gap:12px;background:linear-gradient(135deg,#ff7e5f,#feb47b);color:#0f1a3d;font-weight:bold;font-size:1.2rem;padding:16px 40px;border-radius:50px;text-decoration:none;box-shadow:0 5px 20px rgba(255,126,95,0.4);transition:all 0.3s ease;border:none;cursor:pointer;position:relative;overflow:hidden;width:100%;max-width:350px}
+        .global-search-btn:hover{transform:translateY(-5px);box-shadow:0 8px 25px rgba(255,126,95,0.6)}
+        .global-search-btn::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.3),transparent);transition:0.5s}
+        .global-search-btn:hover::before{left:100%}
+        .global-search-btn i{font-size:1.4rem;color:#0f1a3d}
+        .search-tip{margin-top:10px;font-size:0.9rem;color:#ffbca7;opacity:0.8}
+        @media (max-width:768px){
+            h1{font-size:2.2rem;margin-bottom:12px}
+            .logo{gap:10px;margin-bottom:15px}
+            .subtitle{margin-bottom:15px;font-size:1.1rem}
+            .table-wrapper{height:400px}
+            .table-header{flex-direction:column;align-items:flex-start;padding:15px}
+            .controls{width:100%;justify-content:space-between}
+            .table-wrapper iframe{height:calc(100% + 40px);top:-40px}
+            .ad-container{padding:0 10px}
+            .download-links{flex-direction:column;align-items:center;gap:15px}
+            .download-link{width:100%;max-width:100%;padding:15px}
+            .player-title h3{font-size:1.5rem;text-align:center}
+            .player-description{font-size:1rem;padding:10px 15px}
+            .content-wrapper{gap:25px}
+            .player-section{padding:18px;margin-top:25px !important}
+            footer{padding:15px;margin-top:30px}
+            .spacing-area{height:20px}
+            header{margin-bottom:20px;padding:20px 15px}
+            .security-note{padding:12px}
+            .single-player-card{padding:15px}
+            .table-container{margin-bottom:30px}
+            .global-search-container{margin:15px auto}
+            .global-search-btn{padding:14px 30px;font-size:1.1rem;max-width:280px}
+            .search-tip{font-size:0.85rem;padding:0 15px}
         }
     </style>
 </head>
@@ -691,7 +117,7 @@
         <header>
             <div class="logo">
                 <i class="fas fa-cloud-download-alt logo-icon"></i>
-                <h1>AVPSY1</h1>
+                <h1>AV寳PS蔵Y1</h1>
             </div>
             <p class="subtitle">Anime Video Pan Sync - 动漫迷专属的视频网盘分享平台</p>
             
@@ -721,6 +147,7 @@
             <a href="https://guangying.baozang.asia/s/%E4%BB%99%E9%80%86.html" class="global-search-btn" target="_blank">
                 <i class="fas fa-search"></i> 全网搜索
             </a>
+            <p class="search-tip">如页面加载失败，多点几次刷新页面</p>
         </div>
         
         <div class="content-wrapper">
@@ -773,7 +200,7 @@
                         
                         <div class="download-link">
                             <h4><i class="fas fa-download"></i> Ⅱ下载安装包</h4>
-                            <a href="https://drive.uc.cn/s/935115ea9aa14?public=1" class="download-btn" target="_blank">
+                            <a href="https://drive.uc.cn/s/445f52dbe4cd4?public=1" class="download-btn" target="_blank">
                                 UC网盘下载
                             </a>
                         </div>
